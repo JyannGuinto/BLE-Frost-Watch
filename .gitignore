@@ -1,0 +1,15 @@
+# Ignore node_modules for backend and frontend
+BLE-Backend/node_modules/
+BLE-Frontend/node_modules/
+
+# Ignore build/dist outputs
+BLE-Backend/dist/
+BLE-Frontend/dist/
+
+# Ignore environment files
+BLE-Backend/.env
+BLE-Frontend/.env
+
+# Optional editor files
+.vscode/
+.DS_Store
