@@ -3,7 +3,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE || "http://localhost:3000";
 async function request(path, options = {}) {
   const headers = options.headers || {};
 
-  // ❗ Only set JSON headers if the body is not FormData
+  // Only set JSON headers if the body is not FormData
   if (!(options.body instanceof FormData)) {
     headers["Content-Type"] = "application/json";
   }

@@ -36,10 +36,10 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // --- MongoDB Connection ---
 mongoose.connect(process.env.MONGO_URI)
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+  .catch(err => console.error(" MongoDB connection error:", err));
 
 mongoose.connection.once("open", async () => {
-  console.log("📦 MongoDB connected:", mongoose.connection.name);
+  console.log(" MongoDB connected:", mongoose.connection.name);
 
   LiveMapBroadcaster.init(io);
 
@@ -47,9 +47,9 @@ mongoose.connection.once("open", async () => {
   const activeMap = await Map.findOne({ active: true }).lean();
   if (activeMap) {
     LiveMapBroadcaster.setActiveMap(activeMap);
-    console.log("🗺️ Loaded active map on boot:", activeMap._id);
+    console.log(" Loaded active map on boot:", activeMap._id);
   } else {
-    console.log("⚠️ No active map found on startup");
+    console.log(" No active map found on startup");
   }
 });
 
@@ -59,7 +59,7 @@ let lastLogs = new Map();
 const mqttClient = mqtt.connect(process.env.MQTT_BROKER);
 
 mqttClient.on("connect", () => {
-  console.log("📡 Connected to MQTT broker");
+  console.log(" Connected to MQTT broker");
   mqttClient.subscribe("warehouse/+/beacons", err => {
     if (err) console.error("Subscription error:", err);
     else console.log("📡 Subscribed to warehouse/+/beacons");
@@ -244,7 +244,7 @@ setTimeout(() => {
 // --- Periodic maintenance ---
 setInterval(async () => {
   lastLogs = new Map();
-  console.log("🧹 Cleared BLE cache");
+  console.log(" Cleared BLE cache");
 
   const cutoff = new Date(Date.now() - 2 * 60 * 1000);
   await Gateway.updateMany({ lastSeen: { $lt: cutoff } }, { status: "offline" });
@@ -258,17 +258,17 @@ app.get("/", (req, res) => {
 
 // --- Socket Logging ---
 io.on("connection", (socket) => {
-  console.log(`🔌 Socket connected: ${socket.id}`);
+  console.log(` Socket connected: ${socket.id}`);
   LiveMapBroadcaster.sendActiveMapTo(socket);
   socket.on("disconnect", () => {
-    console.log(`❌ Socket disconnected: ${socket.id}`);
+    console.log(` Socket disconnected: ${socket.id}`);
   });
 });
 
 // --- Start Server ---
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
-  server.listen(PORT, () => console.log(`🚀 Server listening on port ${PORT}`));
+  server.listen(PORT, () => console.log(` Server listening on port ${PORT}`));
 }
 
 module.exports = { app, io, server };
@@ -311,10 +311,10 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // --- MongoDB Connection ---
 mongoose.connect(process.env.MONGO_URI)
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+  .catch(err => console.error(" MongoDB connection error:", err));
 
 mongoose.connection.once("open", async () => {
-  console.log("📦 MongoDB connected:", mongoose.connection.name);
+  console.log(" MongoDB connected:", mongoose.connection.name);
 
   LiveMapBroadcaster.init(io);
 
@@ -322,9 +322,9 @@ mongoose.connection.once("open", async () => {
   const activeMap = await Map.findOne({ active: true }).lean();
   if (activeMap) {
     LiveMapBroadcaster.setActiveMap(activeMap);
-    console.log("🗺️ Loaded active map on boot:", activeMap._id);
+    console.log(" Loaded active map on boot:", activeMap._id);
   } else {
-    console.log("⚠️ No active map found on startup");
+    console.log(" No active map found on startup");
   }
 });
 
@@ -541,11 +541,11 @@ setTimeout(() => {
 // --- Periodic maintenance ---
 setInterval(async () => {
   lastLogs = new Map();
-  console.log("🧹 Cleared BLE cache");
+  console.log(" Cleared BLE cache");
 
   const cutoff = new Date(Date.now() - 2 * 60 * 1000);
   await Gateway.updateMany({ lastSeen: { $lt: cutoff } }, { status: "offline" });
-  console.log("📡 Updated inactive gateways to offline");
+  console.log(" Updated inactive gateways to offline");
 }, 60 * 1000);
 
 // --- Base Route ---
@@ -558,14 +558,14 @@ io.on("connection", (socket) => {
   console.log(`🔌 Socket connected: ${socket.id}`);
   LiveMapBroadcaster.sendActiveMapTo(socket);
   socket.on("disconnect", () => {
-    console.log(`❌ Socket disconnected: ${socket.id}`);
+    console.log(`Socket disconnected: ${socket.id}`);
   });
 });
 
 // --- Start Server ---
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
-  server.listen(PORT, () => console.log(`🚀 Server listening on port ${PORT}`));
+  server.listen(PORT, () => console.log(` Server listening on port ${PORT}`));
 }
 
 module.exports = { app, io, server };
@@ -604,19 +604,19 @@ app.use("/api", routes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 mongoose.connect(process.env.MONGO_URI)
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+  .catch(err => console.error(" MongoDB connection error:", err));
 
 mongoose.connection.once("open", async () => {
-  console.log("📦 MongoDB connected:", mongoose.connection.name);
+  console.log(" MongoDB connected:", mongoose.connection.name);
 
   LiveMapBroadcaster.init(io);
 
   const activeMap = await Map.findOne({ active: true }).lean();
   if (activeMap) {
     LiveMapBroadcaster.setActiveMap(activeMap);
-    console.log("🗺️ Loaded active map on boot:", activeMap._id);
+    console.log(" Loaded active map on boot:", activeMap._id);
   } else {
-    console.log("⚠️ No active map found on startup");
+    console.log(" No active map found on startup");
   }
 });
 
@@ -626,10 +626,10 @@ let lastLogs = new Map();
 const mqttClient = mqtt.connect(process.env.MQTT_BROKER);
 
 mqttClient.on("connect", () => {
-  console.log("📡 Connected to MQTT broker");
+  console.log(" Connected to MQTT broker");
   mqttClient.subscribe("warehouse/+/beacons", err => {
     if (err) console.error("Subscription error:", err);
-    else console.log("📡 Subscribed to warehouse/+/beacons");
+    else console.log(" Subscribed to warehouse/+/beacons");
   });
 });
 
@@ -876,10 +876,10 @@ setTimeout(() => {
 
 setInterval(async () => {
   lastLogs = new Map();
-  console.log("🧹 Cleared BLE cache");
+  console.log(" Cleared BLE cache");
   const cutoff = new Date(Date.now() - 2 * 60 * 1000);
   await Gateway.updateMany({ lastSeen: { $lt: cutoff } }, { status: "offline" });
-  console.log("📡 Updated inactive gateways to offline");
+  console.log(" Updated inactive gateways to offline");
 }, 60 * 1000);
 
 app.get("/", (req, res) => {
@@ -887,14 +887,14 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log(`🔌 Socket connected: ${socket.id}`);
+  console.log(` Socket connected: ${socket.id}`);
   LiveMapBroadcaster.sendActiveMapTo(socket);
-  socket.on("disconnect", () => console.log(`❌ Socket disconnected: ${socket.id}`));
+  socket.on("disconnect", () => console.log(` Socket disconnected: ${socket.id}`));
 });
 
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
-  server.listen(PORT, () => console.log(`🚀 Server listening on port ${PORT}`));
+  server.listen(PORT, () => console.log(` Server listening on port ${PORT}`));
 }
 
 module.exports = { app, io, server };

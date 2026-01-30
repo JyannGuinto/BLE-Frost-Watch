@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost:27017/ble-monitoring') // adjust your DB
     });
 
     await adminUser.save();
-    console.log('✅ Admin user created');
+    console.log(' Admin user created');
     mongoose.disconnect();
   })
   .catch(console.error);

@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGO_URI)
       { $set: { password: passwordHash } }
     );
 
-    console.log('✅ Admin password updated');
+    console.log(' Admin password updated');
     mongoose.disconnect();
   })
   .catch(console.error);

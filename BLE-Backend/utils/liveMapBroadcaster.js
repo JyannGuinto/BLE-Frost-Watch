@@ -7,21 +7,21 @@ class LiveMapBroadcaster {
 
   init(io) {
     this.io = io;
-    console.log("📡 LiveMapBroadcaster initialized");
+    console.log(" LiveMapBroadcaster initialized");
   }
 
   setActiveMap(map) {
     this.cachedActiveMap = map || null;
-    console.log("🗺️ Cached active map updated:", map?._id || "none");
+    console.log(" Cached active map updated:", map?._id || "none");
   }
 
   sendActiveMapTo(socket) {
     if (!this.cachedActiveMap) {
-      console.log("⚠️ No active map to send to", socket.id);
+      console.log(" No active map to send to", socket.id);
       return;
     }
     socket.emit("active-map", this.cachedActiveMap);
-    console.log(`📤 Sent active-map → ${socket.id}`);
+    console.log(` Sent active-map → ${socket.id}`);
   }
 
   /**
@@ -90,7 +90,7 @@ class LiveMapBroadcaster {
     this.io.emit("live-map-update", payload);
 
     console.log(
-      "📡 Broadcast live-map-update:",
+      " Broadcast live-map-update:",
       "map", payload.map ? payload.map._id || payload.map.id || "(map)" : "(none)",
       "gateways", (gateways || []).length,
       "employees", safeEmployees.length,
@@ -103,7 +103,7 @@ class LiveMapBroadcaster {
     if (!this.io) return;
     this.cachedActiveMap = map || null;
     this.io.emit("active-map-updated", map);
-    console.log("📡 broadcast active-map-updated:", map?._id || "none");
+    console.log(" broadcast active-map-updated:", map?._id || "none");
   }
 }
 
